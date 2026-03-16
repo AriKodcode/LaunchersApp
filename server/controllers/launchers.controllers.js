@@ -8,3 +8,12 @@ export const getApiLaunchers = async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 };
+export const getApiLaunchersById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const launcher = await getApiLaunchersById({ id });
+    res.status(200).json({ launcher });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
