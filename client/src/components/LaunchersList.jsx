@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 export default function LaunchersList() {
   const navigate = useNavigate();
   const [launchers, setlaunchers] = useState([]);
+  const [filterLauncher, setFilterLaunchers] = useState([]);
   const [city, setcity] = useState("");
   const [rocketType, setRocketType] = useState("");
   const [id, setId] = useState("");
@@ -15,6 +16,17 @@ export default function LaunchersList() {
   async function fetchLaunchers() {
     const resLaunchers = await axios.get("http://localhost:3000/api/launchers");
     setlaunchers(resLaunchers.data["launchers"]);
+  }
+  async function heldlLauncherByQuery() {
+    const filter = {};
+    if (city) filter.city = city;
+    if (rocketType) filter.rocketType = rocketType;
+    const res = await axios.get("http://localhost:3000/api/launchers", filter);
+    setFilterLaunchers(res.data["launchers"]);
+    try {
+    } catch (err) {
+      console.log(err);
+    }
   }
   useEffect(() => {
     fetchLaunchers();
@@ -31,24 +43,57 @@ export default function LaunchersList() {
         <button
           className="add"
           onClick={() => {
-            setQuery(!query), setLaunchersList(!launchersList);
+            setQuery(!query),
+              setLaunchersList(!launchersList),
+              setSearchById(false);
           }}
         >
           Filter
         </button>
+        <button
+          className="add"
+          onClick={() => {
+            setSearchById(searchById),
+              setLaunchersList(!launchersList),
+              setQuery(false);
+          }}
+        >
+          Serach by ID
+        </button>
       </div>
-      {query && <div></div>}
-      <div className="lainchers-list">
-        {launchers.map((launcher) => (
-          <Launcer
-            key={launcher._id}
-            id={launcher._id}
-            name={launcher.name}
-            city={launcher.city}
-            rocketType={launcher.rocketType}
-          />
-        ))}
-      </div>
+      {query && (
+        <div>
+          <form onSubmit={heldlLauncherByQuery}>
+            <label htmlFor="">city</label>
+            <input
+              type="text"
+              id="c"
+              onChange={(e) => setcity(e.target.value)}
+            />
+            <label htmlFor="">rocket type</label>
+            <input
+              type="text"
+              id="r"
+              onChange={(e) => setRocketType(e.target.value)}
+            />
+            <button type="submit">search</button>
+          </form>
+        </div>
+      )}
+      {searchById && <div></div>}
+      {launchersList && (
+        <div className="lainchers-list">
+          {launchers.map((launcher) => (
+            <Launcer
+              key={launcher._id}
+              id={launcher._id}
+              name={launcher.name}
+              city={launcher.city}
+              rocketType={launcher.rocketType}
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
