@@ -14,6 +14,15 @@ import {
 export const getApiLaunchers = async (req, res) => {
   try {
     const launchers = await getAllLaunchers();
+    const { city, rocketType } = req.query;
+    if (city) {
+      launchers = launchers.filter((launcher) => launcher.city === city);
+    }
+    if (rocketType) {
+      launchers = launchers.filter(
+        (launcher) => launcher.rocketType === rocketType
+      );
+    }
     res.status(200).json({ launchers });
   } catch (err) {
     res.status(500).json({ error: err.message });

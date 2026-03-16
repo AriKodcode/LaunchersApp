@@ -1,0 +1,16 @@
+.header {
+  display: flex;
+  background-color: darkslategrey;
+  align-items: center;
+  height: 15%;
+}
+.unit-image {
+  width: 3rem;
+  height: 3rem;
+  animation: 3s infinite linear;
+  margin-left: 2rem;
+}
+.logo {
+  font-size: 3rem;
+  margin: 0.4rem 0;
+}
