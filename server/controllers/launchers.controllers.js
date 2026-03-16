@@ -3,8 +3,13 @@ import {
   addedLauncer,
   deleteLauncherById,
   getAllLaunchers,
+  updateLauncherById,
 } from "../dal/launchers.dal";
-import checkNewLachers from "../services/launchers.services";
+import {
+  checkId,
+  checkNewLachers,
+  checkUpdateLauncher,
+} from "../services/launchers.services";
 
 export const getApiLaunchers = async (req, res) => {
   try {
@@ -17,9 +22,7 @@ export const getApiLaunchers = async (req, res) => {
 export const getApiLaunchersById = async (req, res) => {
   try {
     const { id } = req.params;
-    if (!id) {
-      res.status(400).json({ error: "missing id" });
-    }
+    checkId(id);
     const launcher = await getApiLaunchersById({ id });
     res.status(200).json({ launcher });
   } catch (err) {
@@ -47,12 +50,28 @@ export const newLauncher = async (req, res) => {
 export const deleteLauncher = async (req, res) => {
   try {
     const { id } = req.params;
-    if (!id) {
-      res.status(400).json({ error: "missing id" });
-    }
+    checkId(id);
     await deleteLauncherById(id);
     res.status(200).json({ message: `launcher ${id} deleted` });
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+};
+export const updateLauncher = async (req, res) => {
+  try {
+    const { id } = req.params;
+    checkUpdateLauncher(id, req.body);
+    const { update } = req.body;
+    const { name, city, rocketType, latitude, longitude } = update;
+    const resUpdate = {};
+    if (name) resUpdate.name = name;
+    if (city) resUpdate.city = city;
+    if (rocketType) resUpdate.rocketType = rocketType;
+    if (latitude) resUpdate.latitude = latitude;
+    if (longitude) resUpdate.longitude = longitude;
+    updateLauncherById(id, resUpdate);
+    res.status(200).json({ updateLauncher: resUpdate });
+  } catch (err) {
+    res.status(500).jsox({ error: err.message });
   }
 };
