@@ -31,8 +31,6 @@ export const getApiLaunchersById = async (req, res) => {
 };
 export const newLauncher = async (req, res) => {
   try {
-    console.log(1);
-
     checkNewLachers(req.body);
     const { name, city, rocketType, latitude, longitude } = req.body;
     const launcher = {
