@@ -10,7 +10,7 @@ connectMongoose();
 app.use(express.json());
 app.use(cors);
 
-app.use("launchers", launcers);
+app.use("/api/launchers", launcers);
 
 app.listen(PORT, () => {
   console.log(`server run on port ${PORT}`);
