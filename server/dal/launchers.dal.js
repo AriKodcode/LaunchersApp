@@ -1,17 +1,17 @@
 import launchers from "../model/schema.model.js";
 
 export async function getAllLaunchers() {
-  return await new launchers.find();
+  return await launchers.find();
 }
 export async function getLauncherById() {
-  return await new launchers.findOne();
+  return await launchers.findOne();
 }
 export async function addedLauncer(launcher) {
-  return await new launchers.create(launcher);
+  return await launchers.create(launcher);
 }
 export async function deleteLauncherById(id) {
-  return await new launchers.findByIdAndDelete(id);
+  return await launchers.findByIdAndDelete(id);
 }
 export async function updateLauncherById(id, updateData) {
-  return await new launchers.findByIdAndUpdate(id, updateData);
+  return await launchers.findByIdAndUpdate(id, updateData, { new: true });
 }

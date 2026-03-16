@@ -1,19 +1,28 @@
-import { nanoid } from "nanoid";
 import {
   addedLauncer,
   deleteLauncherById,
   getAllLaunchers,
+  getLauncherById,
   updateLauncherById,
-} from "../dal/launchers.dal";
+} from "../dal/launchers.dal.js";
 import {
   checkId,
   checkNewLachers,
   checkUpdateLauncher,
-} from "../services/launchers.services";
+} from "../services/launchers.services.js";
 
 export const getApiLaunchers = async (req, res) => {
   try {
     const launchers = await getAllLaunchers();
+    const { city, rocketType } = req.query;
+    if (city) {
+      launchers = launchers.filter((launcher) => launcher.city === city);
+    }
+    if (rocketType) {
+      launchers = launchers.filter(
+        (launcher) => launcher.rocketType === rocketType
+      );
+    }
     res.status(200).json({ launchers });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -23,7 +32,7 @@ export const getApiLaunchersById = async (req, res) => {
   try {
     const { id } = req.params;
     checkId(id);
-    const launcher = await getApiLaunchersById({ id });
+    const launcher = await getLauncherById({ id });
     res.status(200).json({ launcher });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -34,15 +43,14 @@ export const newLauncher = async (req, res) => {
     checkNewLachers(req.body);
     const { name, city, rocketType, latitude, longitude } = req.body;
     const launcher = {
-      id: nanoid(8),
       name,
       city,
       rocketType,
       latitude,
       longitude,
     };
-    await addedLauncer(launcher);
-    res.status(201).json({ launcher });
+    const newLauncher = await addedLauncer(launcher);
+    res.status(201).json({ launcher: newLauncher });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -51,8 +59,8 @@ export const deleteLauncher = async (req, res) => {
   try {
     const { id } = req.params;
     checkId(id);
-    await deleteLauncherById(id);
-    res.status(200).json({ message: `launcher ${id} deleted` });
+    const launcher = await deleteLauncherById(id);
+    res.status(200).json({ launcher });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -61,17 +69,16 @@ export const updateLauncher = async (req, res) => {
   try {
     const { id } = req.params;
     checkUpdateLauncher(id, req.body);
-    const { update } = req.body;
-    const { name, city, rocketType, latitude, longitude } = update;
+    const { name, city, rocketType, latitude, longitude } = req.body;
     const resUpdate = {};
     if (name) resUpdate.name = name;
     if (city) resUpdate.city = city;
     if (rocketType) resUpdate.rocketType = rocketType;
     if (latitude) resUpdate.latitude = latitude;
     if (longitude) resUpdate.longitude = longitude;
-    updateLauncherById(id, resUpdate);
-    res.status(200).json({ updateLauncher: resUpdate });
+    const updateLauncher = await updateLauncherById(id, resUpdate);
+    res.status(200).json({ updateLauncher });
   } catch (err) {
-    res.status(500).jsox({ error: err.message });
+    res.status(500).json({ error: err.message });
   }
 };
