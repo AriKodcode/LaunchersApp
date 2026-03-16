@@ -1,5 +1,9 @@
 import { nanoid } from "nanoid";
-import { addedLauncer, getAllLaunchers } from "../dal/launchers.dal";
+import {
+  addedLauncer,
+  deleteLauncherById,
+  getAllLaunchers,
+} from "../dal/launchers.dal";
 import checkNewLachers from "../services/launchers.services";
 
 export const getApiLaunchers = async (req, res) => {
@@ -13,6 +17,9 @@ export const getApiLaunchers = async (req, res) => {
 export const getApiLaunchersById = async (req, res) => {
   try {
     const { id } = req.params;
+    if (!id) {
+      res.status(400).json({ error: "missing id" });
+    }
     const launcher = await getApiLaunchersById({ id });
     res.status(200).json({ launcher });
   } catch (err) {
@@ -33,6 +40,18 @@ export const newLauncher = async (req, res) => {
     };
     await addedLauncer(launcher);
     res.status(201).json({ launcher });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+export const deleteLauncher = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      res.status(400).json({ error: "missing id" });
+    }
+    await deleteLauncherById(id);
+    res.status(200).json({ message: `launcher ${id} deleted` });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
