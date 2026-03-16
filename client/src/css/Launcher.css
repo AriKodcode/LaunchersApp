@@ -1,0 +1,27 @@
+.launcher {
+  border: 1px solid;
+  border-radius: 20px;
+  padding: 2%;
+  display: flex;
+  justify-content: space-between;
+}
+.launcher:hover {
+  background-color: aliceblue;
+}
+.details {
+  display: flex;
+  width: 40%;
+  justify-content: space-between;
+}
+.details div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.launcher-bth {
+  padding: 0.4rem 2rem;
+  border-radius: 20px;
+}
+.launcher-bth:hover {
+  background-color: rgb(164, 167, 171);
+}

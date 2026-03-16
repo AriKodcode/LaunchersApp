@@ -23,16 +23,6 @@ export function checkNewLachers(launcher) {
     error.statusCode = 400;
     throw error;
   }
-  if (typeof latitude !== "number") {
-    const error = new Error("Error latitude must be number");
-    error.statusCode = 400;
-    throw error;
-  }
-  if (typeof longitude !== "number") {
-    const error = new Error("Error longitude must be number");
-    error.statusCode = 400;
-    throw error;
-  }
   if (typeof name !== "string") {
     const error = new Error("Error name must be string");
     error.statusCode = 400;
