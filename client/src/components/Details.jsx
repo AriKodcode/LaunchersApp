@@ -4,13 +4,13 @@ import "../css/Details.css";
 import { useNavigate } from "react-router-dom";
 export default function Details({ id }) {
   const navigate = useNavigate();
-  const [launcher, setLauncher] = useState([]);
+  const [launcher, setLauncher] = useState({});
   async function fetchLauncherById() {
     try {
-      const launcher = await axios.get(
+      const launcher2 = await axios.get(
         `http://localhost:3000/api/launchers/${id}`
       );
-      setLauncher(launcher.data["launcher"]);
+      setLauncher(launcher2.data["launcher"]);
     } catch (err) {
       console.log(err);
     }

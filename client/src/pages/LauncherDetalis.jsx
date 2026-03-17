@@ -7,7 +7,6 @@ export default function LauncherDetalis() {
   return (
     <div>
       <Details id={id} />
-      <p></p>
     </div>
   );
 }

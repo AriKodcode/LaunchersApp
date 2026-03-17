@@ -13,8 +13,10 @@ import {
 
 export const getApiLaunchers = async (req, res) => {
   try {
-    const launchers = await getAllLaunchers();
+    let launchers = await getAllLaunchers();
     const { city, rocketType } = req.query;
+    console.log(rocketType);
+
     if (city) {
       launchers = launchers.filter((launcher) => launcher.city === city);
     }
@@ -23,6 +25,8 @@ export const getApiLaunchers = async (req, res) => {
         (launcher) => launcher.rocketType === rocketType
       );
     }
+    console.log(launchers);
+
     res.status(200).json({ launchers });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -32,7 +36,7 @@ export const getApiLaunchersById = async (req, res) => {
   try {
     const { id } = req.params;
     checkId(id);
-    const launcher = await getLauncherById({ id });
+    const launcher = await getLauncherById({ _id: id });
     res.status(200).json({ launcher });
   } catch (err) {
     res.status(500).json({ error: err.message });

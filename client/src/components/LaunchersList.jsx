@@ -17,13 +17,16 @@ export default function LaunchersList() {
     const resLaunchers = await axios.get("http://localhost:3000/api/launchers");
     setlaunchers(resLaunchers.data["launchers"]);
   }
-  async function heldlLauncherByQuery() {
+  async function heldlLauncherByQuery(event) {
+    event.preventDefault();
     const filter = {};
     if (city) filter.city = city;
     if (rocketType) filter.rocketType = rocketType;
-    const res = await axios.get("http://localhost:3000/api/launchers", filter);
-    setFilterLaunchers(res.data["launchers"]);
     try {
+      const res = await axios.get("http://localhost:3000/api/launchers", {
+        params: filter,
+      });
+      setFilterLaunchers(res.data["launchers"]);
     } catch (err) {
       console.log(err);
     }
@@ -31,6 +34,8 @@ export default function LaunchersList() {
   useEffect(() => {
     fetchLaunchers();
   }, []);
+  console.log(launchers);
+
   return (
     <div>
       <div className="butoons">
@@ -53,7 +58,7 @@ export default function LaunchersList() {
         <button
           className="add"
           onClick={() => {
-            setSearchById(searchById),
+            setSearchById(!searchById),
               setLaunchersList(!launchersList),
               setQuery(false);
           }}
@@ -78,6 +83,15 @@ export default function LaunchersList() {
             />
             <button type="submit">search</button>
           </form>
+          {filterLauncher.map((launcher) => (
+            <Launcer
+              key={launcher._id}
+              id={launcher._id}
+              name={launcher.name}
+              city={launcher.city}
+              rocketType={launcher.rocketType}
+            />
+          ))}
         </div>
       )}
       {searchById && <div></div>}

@@ -3,8 +3,8 @@ import launchers from "../model/schema.model.js";
 export async function getAllLaunchers() {
   return await launchers.find();
 }
-export async function getLauncherById() {
-  return await launchers.findOne();
+export async function getLauncherById(id) {
+  return await launchers.findOne(id);
 }
 export async function addedLauncer(launcher) {
   return await launchers.create(launcher);
