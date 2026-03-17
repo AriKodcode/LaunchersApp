@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import "../css/Login.css";
 export default function Login() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
@@ -10,18 +10,25 @@ export default function Login() {
 
   async function handelSubmit(event) {
     event.preventDefault();
-    const user = {
+    const loginuser = {
       username,
       password,
     };
     try {
-      const user = await axios.post(
+      setError(false);
+      const login = await axios.post(
         "http://localhost:3000/api/auth/login",
-        user
+        loginuser
       );
-      localStorage.setItem("token", user.data.token);
-      localStorage.setItem("user", JSON.stringify(user.data.user));
-      navigate("/launchers");
+      const user = login.data.user;
+      const token = login.data.token;
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
+      if (user.user_type === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/launchers");
+      }
     } catch (err) {
       setError(true);
       console.log(err);

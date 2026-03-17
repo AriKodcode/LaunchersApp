@@ -1,0 +1,16 @@
+.delete-box {
+  margin-top: 5%;
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  margin-left: 35%;
+  background-color: white;
+  padding: 5%;
+  border-radius: 20px;
+  align-items: center;
+}
+.logo-delete {
+  text-align: center;
+  font-size: 3rem;
+  margin: 3%;
+}

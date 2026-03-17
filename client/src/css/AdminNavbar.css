@@ -1,0 +1,10 @@
+.navbar-bth-box {
+  width: 100vw;
+  background-color: darkslategrey;
+  display: flex;
+  justify-content: center;
+}
+.navbar-bth {
+  padding: 0.4rem;
+  margin: 0.4rem;
+}

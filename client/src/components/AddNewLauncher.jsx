@@ -13,9 +13,11 @@ export default function AddNewLauncher() {
   const [success, setSuccess] = useState(false);
 
   async function handleSubmit(event) {
-    console.log(1);
+    const token = localStorage.getItem("token");
+    
     event.preventDefault();
     try {
+
       const newLauncher = {
         city,
         rocketType,
@@ -25,13 +27,12 @@ export default function AddNewLauncher() {
       };
       setError(false);
       setSuccess(false);
-      console.log(newLauncher);
 
       const res = await axios.post(
         "http://localhost:3000/api/launchers",
-        newLauncher
+        newLauncher,
+        { headers: { Authorization: `Bearer ${token}` } }
       );
-      console.log(res);
 
       setSuccess(true);
     } catch (err) {

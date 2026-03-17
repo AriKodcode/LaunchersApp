@@ -1,0 +1,19 @@
+.register-box {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 4%;
+  border-radius: 20px;
+  width: 30%;
+  margin-left: 35%;
+  margin-top: 5%;
+}
+.logo-register {
+  text-align: center;
+  font-size: 3rem;
+  margin: 3%;
+}
+.logout {
+  padding: 0.4rem;
+  margin: 0.4rem;
+}

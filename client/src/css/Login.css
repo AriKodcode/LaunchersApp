@@ -1,0 +1,15 @@
+.login-box {
+  margin-top: 10%;
+  border-radius: 20px;
+  background-color: white;
+  padding: 5%;
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  margin-left: 35%;
+}
+.error-login {
+  text-align: center;
+  color: red;
+  font-size: 1.5rem;
+}
