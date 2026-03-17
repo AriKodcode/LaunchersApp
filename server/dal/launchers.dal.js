@@ -1,4 +1,4 @@
-import launchers from "../model/schema.model.js";
+import launchers from "../model/schemaLaunchers.model.js";
 
 export async function getAllLaunchers() {
   return await launchers.find();
