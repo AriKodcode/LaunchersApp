@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import AdminNavbar from "./AdminNavbar";
 
 export default function UpdateUser() {
   const navigate = useNavigate();
@@ -35,16 +36,9 @@ export default function UpdateUser() {
       SetError(err);
     }
   }
-  async function logout() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    navigate("/");
-  }
   return (
     <div className="register">
-      <button className="logout" onClick={() => logout}>
-        Logout
-      </button>
+      <AdminNavbar />
       <h1 className="logo-register">Update user</h1>
       <form className="register-box" onSubmit={handleSubmit}>
         <label htmlFor="id-update">ID</label>
@@ -75,7 +69,7 @@ export default function UpdateUser() {
         <label htmlFor="user-type-">User type</label>
         <select id="user-type" onChange={(e) => setUser_type(e.target.value)}>
           <option value="admin">Admin</option>
-          <option value="navy">Navy</option>
+          <option value="air force">Air force</option>
           <option value="intelligence">Intelligence</option>
         </select>
         <button type="submit">Update user</button>

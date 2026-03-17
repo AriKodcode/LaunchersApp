@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/Register.css";
+import AdminNavbar from "./AdminNavbar";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -33,11 +34,12 @@ export default function Register() {
       setSuccess(true);
     } catch (err) {
       setError(true);
-      console.log(err);
+      console.log(err.message);
     }
   }
   return (
     <div className="register">
+      <AdminNavbar />
       <h1 className="logo-register">Register</h1>
       <form className="register-box" onSubmit={hansleSubmit}>
         <label htmlFor="username-register">User Name</label>
@@ -61,7 +63,7 @@ export default function Register() {
         <label htmlFor="user-type">User type</label>
         <select id="user-type" onChange={(e) => setUser_type(e.target.value)}>
           <option value="admin">Admin</option>
-          <option value="navy">Navy</option>
+          <option value="air force">Air forch</option>
           <option value="intelligence">Intelligence</option>
         </select>
         <button type="submit">Create new user</button>

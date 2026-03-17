@@ -14,8 +14,8 @@ export default function navyToken(req, res, next) {
   }
   try {
     const decoded = jwt.verify(token[1], SECRET);
-    if (decoded.user_type !== "admin" || decoded.user_type !== "navy") {
-      return res.status(401).json({ error: "only admin or navy" });
+    if (decoded.user_type !== "admin" || decoded.user_type !== "air force") {
+      return res.status(401).json({ error: "only admin or Air force" });
     }
     req.user = decoded;
     next();

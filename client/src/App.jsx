@@ -10,6 +10,7 @@ import RegisterPage from "./pages/RegisterPage";
 import AdminDashboardPage from "./pages/AdminDashboardPage";
 import UpdateUser from "./components/UpdateUser";
 import DeleteUser from "./components/DeleteUser";
+import AllUsers from "./components/AllUsers";
 export default function App() {
   return (
     <div className="app">
@@ -23,6 +24,7 @@ export default function App() {
         <Route path="/register/create" element={<RegisterPage />} />
         <Route path="/register/update" element={<UpdateUser />} />
         <Route path="/register/delete" element={<DeleteUser />} />
+        <Route path="/get/users" element={<AllUsers />} />
       </Routes>
     </div>
   );

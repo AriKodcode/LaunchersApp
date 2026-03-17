@@ -7,4 +7,8 @@
 .navbar-bth {
   padding: 0.4rem;
   margin: 0.4rem;
+  border-radius: 5px;
+}
+.navbar-bth:hover {
+  background-color: rgb(215, 215, 127);
 }

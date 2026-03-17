@@ -4,6 +4,7 @@ import Launcer from "./Launcer";
 import "../css/LaunchersList.css";
 import { useNavigate } from "react-router-dom";
 export default function LaunchersList() {
+  const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const [launchers, setlaunchers] = useState([]);
   const [filterLauncher, setFilterLaunchers] = useState([]);
@@ -14,7 +15,10 @@ export default function LaunchersList() {
   const [query, setQuery] = useState(false);
   const [searchById, setSearchById] = useState(false);
   async function fetchLaunchers() {
-    const resLaunchers = await axios.get("http://localhost:3000/api/launchers");
+    const resLaunchers = await axios.get(
+      "http://localhost:3000/api/launchers",
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
     setlaunchers(resLaunchers.data["launchers"]);
   }
   async function heldlLauncherByQuery(event) {
@@ -25,6 +29,7 @@ export default function LaunchersList() {
     try {
       const res = await axios.get("http://localhost:3000/api/launchers", {
         params: filter,
+        headers: { Authorization: `Bearer ${token}` },
       });
       setFilterLaunchers(res.data["launchers"]);
     } catch (err) {
@@ -66,7 +71,8 @@ export default function LaunchersList() {
       </div>
       {query && (
         <div>
-          <form onSubmit={heldlLauncherByQuery}>
+          <h1 className="logo-query">Filetr</h1>
+          <form className="query-box" onSubmit={heldlLauncherByQuery}>
             <label htmlFor="">city</label>
             <input
               type="text"

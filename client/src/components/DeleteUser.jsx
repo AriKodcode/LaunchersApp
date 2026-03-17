@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import "../css/DeleteUser.css";
+import AdminNavbar from "./AdminNavbar";
 export default function DeleteUser() {
   const [id, setId] = useState("");
   const [error, setError] = useState("");
@@ -25,6 +26,7 @@ export default function DeleteUser() {
   }
   return (
     <div className="delete">
+      <AdminNavbar />
       <h1 className="logo-delete">Delete user</h1>
       <form className="delete-box" onSubmit={handlesubmit}>
         <label htmlFor="id-delete">ID</label>
