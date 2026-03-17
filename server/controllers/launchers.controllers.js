@@ -15,8 +15,6 @@ export const getApiLaunchers = async (req, res) => {
   try {
     let launchers = await getAllLaunchers();
     const { city, rocketType } = req.query;
-    console.log(rocketType);
-
     if (city) {
       launchers = launchers.filter((launcher) => launcher.city === city);
     }
@@ -25,8 +23,6 @@ export const getApiLaunchers = async (req, res) => {
         (launcher) => launcher.rocketType === rocketType
       );
     }
-    console.log(launchers);
-
     res.status(200).json({ launchers });
   } catch (err) {
     res.status(500).json({ error: err.message });

@@ -5,15 +5,24 @@ import HomePage from "./pages/HomePage";
 import LauncherDetalis from "./pages/LauncherDetalis";
 import AddLauncherPage from "./pages/AddLauncherPage";
 import Login from "./components/Login";
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
+import AdminDashboardPage from "./pages/AdminDashboardPage";
+import UpdateUser from "./components/UpdateUser";
+import DeleteUser from "./components/DeleteUser";
 export default function App() {
   return (
     <div className="app">
       <Header />
       <Routes>
-        <Login path="/" element={<Login />} />
+        <Route path="/" element={<LoginPage />} />
         <Route path="/launchers" element={<HomePage />} />
         <Route path="/details/:id" element={<LauncherDetalis />} />
         <Route path="/added/launcher" element={<AddLauncherPage />} />
+        <Route path="/admin" element={<AdminDashboardPage />} />
+        <Route path="/register/create" element={<RegisterPage />} />
+        <Route path="/register/update" element={<UpdateUser />} />
+        <Route path="/register/delete" element={<DeleteUser />} />
       </Routes>
     </div>
   );

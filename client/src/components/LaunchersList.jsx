@@ -34,13 +34,11 @@ export default function LaunchersList() {
   useEffect(() => {
     fetchLaunchers();
   }, []);
-  console.log(launchers);
-
   return (
     <div>
       <div className="butoons">
-        <button className="back" onClick={() => navigate("/launchers")}>
-          Back
+        <button className="back" onClick={() => navigate("/")}>
+          Logout
         </button>
         <button className="add" onClick={() => navigate("/added/launcher")}>
           add launcher
